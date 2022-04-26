@@ -2,31 +2,19 @@ import {cat_pic,dog_pic} from "./variables.js";
 
 const showCat = () => {
 
-    $.ajax({
-        url:'https://api.thecatapi.com/v1/images/search',
-        type:"GET",
-        success:(data) =>{
-            cat_pic.innerHTML = `<img src="${data[0].url}">`;    
-        },
-        error:(err) => {
-            console.log(err);
-        }
-    });
+    fetch('https://api.thecatapi.com/v1/images/search'
+    ).then(res => res.json())
+    .then(
+        data => {cat_pic.innerHTML = `<img src="${data[0].url}">`;}
+        );
+
 }
 
 const showDog = () => {
 
-    $.ajax({
-        url:'https://dog.ceo/api/breeds/image/random',
-        type:"GET",
-        success:(data) =>{
-            dog_pic.innerHTML = `<img src="${data.message}">`;    
-        },
-        error:(err) => {
-            console.log(err);
-        }
-    });
-
+    fetch('https://dog.ceo/api/breeds/image/random'
+    ).then(res => res.json())
+    .then(data => {dog_pic.innerHTML = `<img src="${data.message}">`;});
 }
 
 export {showCat,showDog};
